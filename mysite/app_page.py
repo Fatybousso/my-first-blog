@@ -247,7 +247,7 @@ train_generator = train_datagen.flow_from_dataframe(
     batch_size=batch_size
 )
 validation_datagen = ImageDataGenerator(rescale=1./255)
-model.save('model_final2.h5')
+model.save('model_final2')
 def image():
     st.markdown("# image 3D ❄️")
     st.sidebar.markdown('<h1 style="text-align: center;">Identification d\'images ❄️ </h1>', unsafe_allow_html=True)
@@ -265,7 +265,7 @@ def image():
     st.sidebar.markdown("<p style='text-align: center;'>6 -  créé des générateurs d'images d'apprentissage  et de validation pour alimenter le modèle pendant l'entraînement, en utilisant ImageDataGenerator de Keras pour augmenter les données d'entraînement (rotation, ré-échelle, retournement, etc.).</p>", unsafe_allow_html=True)
    
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
-    model = load_model('model_final2.h5')
+    model = load_model('model_final2')
     f=['A','A+D','D','E']
     from PIL import Image
     def preprocess_image(image_path, target_size=(224, 224)):
