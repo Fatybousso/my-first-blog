@@ -168,7 +168,7 @@ def identification():
                   predictions_data = predict_model(estimator = model, data = df)
                   return predictions_data
     
-            model = load_model('best_model')
+            model = load_model('mysite/best_model')
             pred=predict_quality(model, df_to_predict)
             st.write("A: 0, A+D: 1, A+G: 2, D: 3, D+G: 4, G: 5")
             st.dataframe(pred[pred.columns[-3:]][-20:])
