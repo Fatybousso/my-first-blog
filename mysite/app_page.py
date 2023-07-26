@@ -197,7 +197,7 @@ def image():
    
     
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
-    model = load_model('mysite/model_final2.h5')
+    model = load_model('mysite/model_final2')
     f=['A','A+D','D','E']
     from PIL import Image
     def preprocess_image(image_path, target_size=(224, 224)):
