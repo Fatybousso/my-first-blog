@@ -103,38 +103,38 @@ def identification():
             df=df.dropna(subset=target)
             if methode=="Classification":
                 if st.button(" les performances du modèle "):
-                     setup_data = setup(data=df,target = target,
-                        train_size =0.75,categorical_features =None,
-                        normalize = False,normalize_method = None,fold=5)
-                     r=compare_models(round=2)
-                     save_model(r,"best_model")
+                     #setup_data = setup(data=df,target = target,
+                        #train_size =0.75,categorical_features =None,
+                        #normalize = False,normalize_method = None,fold=5)
+                     #r=compare_models(round=2)
+                     #save_model(r,"best_model")
                      st.success("youpiiiii classification fonctionne \U0001F604")
                      st.write("Performances du modèle :")
                 
-                     final_model1 = create_model(r,fold=5,round=2)
+                     #final_model1 = create_model(r,fold=5,round=2)
                      col5,col6=st.columns(2)
                      col5.write('AUC')
-                     plot_model(final_model1,plot='auc',save=True)
+                     #plot_model(final_model1,plot='auc',save=True)
                      col5.image("AUC.png")
                      col6.write("class_report")
-                     plot_model(final_model1,plot='class_report',save=True)
+                     #plot_model(final_model1,plot='class_report',save=True)
                      col6.image("Class Report.png")
                   
                      col7,col8=st.columns(2)
                      col7.write("confusion_matrix")
-                     plot_model(final_model1,plot='confusion_matrix',save=True)
+                     #plot_model(final_model1,plot='confusion_matrix',save=True)
                      col7.image("Confusion Matrix.png")
-                     tuned_model = tune_model(final_model1,optimize='AUC',round=2,n_iter=10);# optimiser le modéle
+                     #tuned_model = tune_model(final_model1,optimize='AUC',round=2,n_iter=10);# optimiser le modéle
                      col8.write("boundary")
-                     plot_model(final_model1 , plot='boundary',save=True)
+                     #plot_model(final_model1 , plot='boundary',save=True)
                      col8.image("Decision Boundary.png")
                     
                      col9,col10=st.columns(2)
                      col9.write("feature")
-                     plot_model(estimator = tuned_model, plot = 'feature',save=True)
+                     #plot_model(estimator = tuned_model, plot = 'feature',save=True)
                      col9.image("Feature Importance.png")
                      col10.write("learning")
-                     plot_model(estimator = final_model1, plot = 'learning',save=True)
+                     #plot_model(estimator = final_model1, plot = 'learning',save=True)
                      col10.image("Learning Curve.png")
                      with open("best_model.pkl",'rb') as f :
                           st.download_button("Telecharger le pipline du modele" , f, file_name="best_model.pkl")
