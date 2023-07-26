@@ -194,94 +194,10 @@ def image():
     st.sidebar.markdown("<p style='text-align: center;'>4 - ajouté une couche de classification à la sortie du modèle avec une activation sigmoid pour la classification multi-classes.</p>", unsafe_allow_html=True)
     st.sidebar.markdown("<p style='text-align: center;'>5 - compilé le modèle en utilisant une fonction de perte de binary_crossentropy (car les étiquettes sont encodées en tant que vecteurs binaires) et un optimiseur SGD</p>", unsafe_allow_html=True)
     st.sidebar.markdown("<p style='text-align: center;'>6 -  créé des générateurs d'images d'apprentissage  et de validation pour alimenter le modèle pendant l'entraînement, en utilisant ImageDataGenerator de Keras pour augmenter les données d'entraînement (rotation, ré-échelle, retournement, etc.).</p>", unsafe_allow_html=True)
-    from keras.models import load_model
-    dir_path='base'
-    fichier=[]
-    labels=[]
-    for i in os.listdir(dir_path):
-        fichier.append(dir_path+'/'+i)
-        labels.append(i)
-    l=[]
-    for j in range(len(labels)):
-        if (labels[j].find('A+D')!=-1) | (labels[j].find('D+A')!=-1) | (labels[j].find('DA')!=-1 ):
-              l.append('A+D')
-        elif labels[j].find('EDTA')!=-1:
-              l.append('E')
-        elif labels[j].find('AMPA')!=-1:
-              l.append('A')
-        else :
-              l.append('D')
-    labels=l
-    base=np.transpose(pd.DataFrame([fichier,labels]))
-
-    Base=base
-    base.columns=['image','labels']
-    train_df, validate_df = train_test_split(base, test_size=0.3)
-    train_df = train_df.reset_index()
-    validate_df = validate_df.reset_index()
-    total_train = train_df.shape[0]
-    total_validate = validate_df.shape[0]
-    image_size = 224
-    input_shape = (image_size, image_size, 3)
-    epochs = 30
-    batch_size = 10
-    pre_trained_model = VGG16(input_shape=input_shape, include_top=False, weights="imagenet")
-    
-    for layer in pre_trained_model.layers[:15]:
-        layer.trainable = False
-    for layer in pre_trained_model.layers[15:]:
-        layer.trainable = True
-    last_layer = pre_trained_model.get_layer('block5_pool')
-    last_output = last_layer.output
-    # Flatten la couche de sortie 1 dimension
-    x = GlobalMaxPooling2D()(last_output)
-    # # Ajoutez une couche entièrement connectée avec 512 unités cachées et activation ReLU
-    x = Dense(512, activation='relu')(x)
-    # ajouter un taux d'abandon 0.5
-    x = Dropout(0.5)(x)
-    # il faut donner le nombre de classe et ajouter l'activation sigmoid
-    x = layers.Dense(4, activation='sigmoid')(x)
-    model = Model(pre_trained_model.input, x)
-    model.compile(loss='binary_crossentropy',
-              optimizer=optimizers.SGD(lr=1e-4, momentum=0.9),
-              metrics=['accuracy'])
-    train_datagen = ImageDataGenerator(
-    rotation_range=15,
-    rescale=1./255,
-    shear_range=0.2,
-    zoom_range=0.2,
-    horizontal_flip=True,
-    fill_mode='nearest',
-    width_shift_range=0.1,
-    height_shift_range=0.1
-    )
-    train_generator = train_datagen.flow_from_dataframe(
-    train_df,
-    x_col='image',
-    y_col='labels',
-    target_size=(image_size, image_size),
-    batch_size=batch_size
-    )
-    validation_datagen = ImageDataGenerator(rescale=1./255)
-    validation_generator = validation_datagen.flow_from_dataframe(
-    validate_df,
-    x_col='image',
-    y_col='labels',
-    target_size=(image_size, image_size),
-    batch_size=batch_size
-    )
-
-    history = model.fit(
-    train_generator,
-    epochs=epochs,
-    validation_data=validation_generator,validation_steps=total_validate//batch_size,
-    steps_per_epoch=total_train//batch_size)
-
-
-
+   
     
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
-    model = load_model('model_final2.h5')
+    model = load_model('mysite/model_final.h5')
     f=['A','A+D','D','E']
     from PIL import Image
     def preprocess_image(image_path, target_size=(224, 224)):
