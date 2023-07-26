@@ -265,7 +265,7 @@ def image():
     st.sidebar.markdown("<p style='text-align: center;'>6 -  créé des générateurs d'images d'apprentissage  et de validation pour alimenter le modèle pendant l'entraînement, en utilisant ImageDataGenerator de Keras pour augmenter les données d'entraînement (rotation, ré-échelle, retournement, etc.).</p>", unsafe_allow_html=True)
    
     st.markdown('<h1 style="text-align: center;">Prédiction image 3D </h1>', unsafe_allow_html=True)
-    model = load_model('model_final2')
+    model = load_model('model_final2.pkl')
     f=['A','A+D','D','E']
     from PIL import Image
     def preprocess_image(image_path, target_size=(224, 224)):
