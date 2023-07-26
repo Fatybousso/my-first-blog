@@ -1,7 +1,7 @@
 # Contents of ~/my_app/streamlit_app.py
 import streamlit as st
 from PIL import Image, ImageOps
-import ydata_profiling   
+import data_profiling   
 import numpy as np
 from streamlit_pandas_profiling import st_profile_report
 import pandas as pd
