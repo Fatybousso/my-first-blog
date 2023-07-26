@@ -21,7 +21,6 @@ from keras import optimizers
 from keras.applications import VGG16
 from keras.models import Model
 import os;
-import cv2 
 import seaborn as sns
 from PIL import Image
 from tensorflow import keras
@@ -43,8 +42,6 @@ import scipy.integrate as spi
 from sklearn import preprocessing
 from scipy import stats
 from sklearn.linear_model import LinearRegression
-from tkinter import *
-from tkinter import filedialog
 from sklearn.preprocessing import StandardScaler
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
