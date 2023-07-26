@@ -247,7 +247,7 @@ train_generator = train_datagen.flow_from_dataframe(
     batch_size=batch_size
 )
 validation_datagen = ImageDataGenerator(rescale=1./255)
-model.sav('model_final2.h5')
+model.save('model_final2.h5')
 def image():
     st.markdown("# image 3D ❄️")
     st.sidebar.markdown('<h1 style="text-align: center;">Identification d\'images ❄️ </h1>', unsafe_allow_html=True)
